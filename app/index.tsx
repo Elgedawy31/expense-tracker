@@ -1,30 +1,35 @@
-import { colors } from '@/constants/theme'
-import React from 'react'
-import { Image, StyleSheet, View } from 'react-native'
+import ScreenWraper from '@/components/ScreenWraper'
+import { router } from 'expo-router'
+import React, { useEffect } from 'react'
+import { Image, StyleSheet } from 'react-native'
 
-const index = () => {
+const Index = () => {
+
+  useEffect(() => {
+    setTimeout(() => {
+      router.push('/(auth)/welcome')
+    }, 2000);
+  } , [])
 
   return (
     
-    <View style={styles.container}>
+    <ScreenWraper style={styles.container}>
 
       <Image
       source={require('@/images/splashImage.png')} 
       resizeMode='contain'
       />
 
-    </View>
+    </ScreenWraper>
   )
 
 }
 
 const styles = StyleSheet.create({
   container:{
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: colors.neutral900
   }
 })
 
-export default index
+export default Index
