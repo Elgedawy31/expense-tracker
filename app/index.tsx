@@ -1,17 +1,30 @@
+import { colors } from '@/constants/theme'
 import React from 'react'
-import { Text, View } from 'react-native'
+import { Image, StyleSheet, View } from 'react-native'
 
 const index = () => {
 
   return (
     
-    <View>
+    <View style={styles.container}>
 
-      <Text>index</Text>
-      
+      <Image
+      source={require('@/images/splashImage.png')} 
+      resizeMode='contain'
+      />
+
     </View>
   )
 
 }
+
+const styles = StyleSheet.create({
+  container:{
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: colors.neutral900
+  }
+})
 
 export default index
