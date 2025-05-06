@@ -1,9 +1,11 @@
 import React from "react";
 import ScreenWraper from "@/components/ScreenWraper";
 import Typo from "@/components/Typo";
-import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { colors, spacingX, spacingY } from "@/constants/theme";
 import { verticalScale } from "@/utils/styling";
+import Button from "@/components/Button";
+import Animated, { FadeIn, FadeInDown } from "react-native-reanimated";
 
 const welcome = () => {
   return (
@@ -18,13 +20,17 @@ const welcome = () => {
           >
             <Typo fontWeight="500">Login</Typo>
           </TouchableOpacity>
-          <Image
+          <Animated.Image
+            entering={FadeIn.duration(500)}
             source={require("@/images/welcome.png")}
             resizeMode="contain"
             style={styles.welcomeImage}
           />
         </View>
-        <View style={styles.footer}>
+        <Animated.View
+          style={styles.footer}
+          entering={FadeInDown.duration(1000).delay(100).springify().damping(12)}
+        >
           <View style={{ alignItems: "center" }}>
             <Typo size={30} fontWeight={800}>
               Always take control
@@ -33,7 +39,7 @@ const welcome = () => {
               of your finances
             </Typo>
           </View>
-          <View style={{ alignItems: "center" , gap:2}}>
+          <View style={{ alignItems: "center", gap: 2 }}>
             <Typo size={17} color={colors.textLight}>
               Always take control
             </Typo>
@@ -41,7 +47,21 @@ const welcome = () => {
               of your finances
             </Typo>
           </View>
-        </View>
+          <Animated.View style={styles.buttonContainer} 
+          entering={FadeInDown.duration(1000).delay(200).springify().damping(12)}
+          >
+            <Button onPress={() => {}}>
+              <Typo
+                color={colors.neutral900}
+                style={{ textAlign: "center" }}
+                fontWeight={600}
+                size={22}
+              >
+                Get Started
+              </Typo>
+            </Button>
+          </Animated.View>
+        </Animated.View>
       </View>
     </ScreenWraper>
   );

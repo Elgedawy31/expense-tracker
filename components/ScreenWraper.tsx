@@ -5,7 +5,7 @@ import { colors } from "@/constants/theme";
 
 const ScreenWraper = ({ style, children }: ScreenWrapperProps) => {
   return (
-    <View style={[{ flex: 1, backgroundColor: colors.neutral900 ,paddingHorizontal:8 }, style]}>
+    <View style={[{ flex: 1, backgroundColor: colors.neutral900}, style]}>
           <StatusBar backgroundColor={colors.neutral900} barStyle='light-content' />
       
       {children}
