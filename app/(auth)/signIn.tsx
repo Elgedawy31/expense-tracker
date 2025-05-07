@@ -1,12 +1,27 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import React from "react";
+import Typo from "@/components/Typo";
+import ScreenWraper from "@/components/ScreenWraper";
+import BackButton from "@/components/BackButton";
+import { StyleSheet, View } from "react-native";
+import { verticalScale } from "@/utils/styling";
+import { spacingX } from "@/constants/theme";
 
 const signIn = () => {
   return (
-    <View>
-      <Text>signIn</Text>
-    </View>
-  )
-}
+    <ScreenWraper>
+      <View style={styles.container}>
+        <BackButton />
+      </View>
+    </ScreenWraper>
+  );
+};
 
-export default signIn
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginTop: verticalScale(10),
+    marginHorizontal: spacingX._20,
+  },
+});
+
+export default signIn;
