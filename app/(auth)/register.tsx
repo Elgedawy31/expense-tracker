@@ -1,7 +1,7 @@
 import Typo from "@/components/Typo";
 import ScreenWraper from "@/components/ScreenWraper";
 import BackButton from "@/components/BackButton";
-import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { Alert, StyleSheet, TouchableOpacity, View } from "react-native";
 import { verticalScale } from "@/utils/styling";
 import { colors, spacingX, spacingY } from "@/constants/theme";
 import Input from "@/components/Input";
@@ -12,6 +12,7 @@ import { z } from "zod";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
+import { useAuth } from "@/context/AuthContext";
 const RegisterSchema = z.object({
   name: z
     .string()
@@ -29,6 +30,7 @@ const RegisterSchema = z.object({
 type FormData = z.infer<typeof RegisterSchema>;
 const Register = () => {
   const [loading, setLoading] = useState(false);
+  const { register } = useAuth();
   const {
     control,
     handleSubmit,
@@ -38,17 +40,22 @@ const Register = () => {
     resolver: zodResolver(RegisterSchema),
   });
 
-  const handleRegister: SubmitHandler<FormData> = (data) => {
-    console.log(data);
+  const handleRegister: SubmitHandler<FormData> = async (data) => {
+    setLoading(true);
+    const res = await register(data.email, data.password, data.name);
+    setLoading(false);
+    if (!res.success) {
+      Alert.alert("Sign Up", res.msg || "Failed to Sign Up")
+    }
   };
-  return (
+  return ( 
     <ScreenWraper>
       <View style={styles.container}>
         <BackButton />
 
         <View style={{ marginVertical: spacingY._20, gap: spacingY._5 }}>
           <Typo size={30} fontWeight={"800"}>
-           Let,s
+            Let,s
           </Typo>
           <Typo size={30} fontWeight={"800"}>
             Get Started
