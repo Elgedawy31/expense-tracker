@@ -13,30 +13,33 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 const RegisterSchema = z.object({
-  name:z.string().min(4 , 'Name must be at lease 4 characters').nonempty('Name is required'),
+  name: z
+    .string()
+    .min(4, "Name must be at lease 4 characters")
+    .nonempty("Name is required"),
   email: z
     .string()
     .email("Invalid email address")
     .nonempty("Email is required"),
   password: z
     .string()
-    .min(6, { message: "Password must be at least 6 characters" }).nonempty("Password is required"),
+    .min(6, { message: "Password must be at least 6 characters" })
+    .nonempty("Password is required"),
 });
 type FormData = z.infer<typeof RegisterSchema>;
 const Register = () => {
-  const [loading , setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const {
     control,
     handleSubmit,
-    
+
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(RegisterSchema),
   });
-  
-  const handleRegister :SubmitHandler<FormData>= (data) => {
-    console.log(data)
 
+  const handleRegister: SubmitHandler<FormData> = (data) => {
+    console.log(data);
   };
   return (
     <ScreenWraper>
@@ -45,10 +48,10 @@ const Register = () => {
 
         <View style={{ marginVertical: spacingY._20, gap: spacingY._5 }}>
           <Typo size={30} fontWeight={"800"}>
-            Hey
+           Let,s
           </Typo>
           <Typo size={30} fontWeight={"800"}>
-            Welcome back
+            Get Started
           </Typo>
         </View>
 
@@ -56,78 +59,91 @@ const Register = () => {
           <Typo size={16} fontWeight={"400"} color={colors.textLighter}>
             Register now to track all your expenses
           </Typo>
-        <View>  <Controller
-            control={control}
-            name="name"
-            render={({ field: { onChange, value } }) => (
-              <>
-                <Input
-                  placeholder="Enter your name"
-                  onChangeText={onChange}
-                  value={value}
-                  icon={
-                    <Icons.User
-                      weight="fill"
-                      size={verticalScale(26)}
-                      color={colors.neutral300}
-                    />
-                  }
-                />
-                {errors.name && <Typo size={12}  style={{ marginTop: 10 }}  color='red'>{errors.name.message}</Typo>}
-              </>
-            )}
-          /></View>
-
-        <View>
+          <View>
             <Controller
-            control={control}
-            name="email"
-            render={({ field: { onChange, value } }) => (
-              <>
-                <Input
-                  placeholder="Enter your email"
-                  onChangeText={onChange}
-                  value={value}
-                  icon={
-                    <Icons.At
-                      weight="fill"
-                      size={verticalScale(26)}
-                      color={colors.neutral300}
-                    />
-                  }
-                />
-                {errors.email && <Typo size={12}  style={{ marginTop: 10 }}  color='red'>{errors.email.message}</Typo>}
-              </>
-            )}
-          />
-        </View>
+              control={control}
+              name="name"
+              render={({ field: { onChange, value } }) => (
+                <>
+                  <Input
+                    placeholder="Enter your name"
+                    onChangeText={onChange}
+                    value={value}
+                    icon={
+                      <Icons.User
+                        weight="fill"
+                        size={verticalScale(26)}
+                        color={colors.neutral300}
+                      />
+                    }
+                  />
+                  {errors.name && (
+                    <Typo size={12} style={{ marginTop: 10 }} color="red">
+                      {errors.name.message}
+                    </Typo>
+                  )}
+                </>
+              )}
+            />
+          </View>
 
           <View>
             <Controller
-            control={control}
-            name="password"
-            render={({field:{onChange , value}}) => (
-              <>
-                <Input
-                  secureTextEntry={true}
-                  placeholder="Enter your password"
-                  onChangeText={onChange}
-                  value={value}
-                  icon={
-                    <Icons.Lock
-                      weight="fill"
-                      size={verticalScale(26)}
-                      color={colors.neutral300}
-                    />
-                  }
-                />
-                {errors.password &&<Typo size={12}  style={{ marginTop: 10 }}  color='red'>{errors.password.message}</Typo>}
-              </>
-            )}
-          />
+              control={control}
+              name="email"
+              render={({ field: { onChange, value } }) => (
+                <>
+                  <Input
+                    placeholder="Enter your email"
+                    onChangeText={onChange}
+                    value={value}
+                    icon={
+                      <Icons.At
+                        weight="fill"
+                        size={verticalScale(26)}
+                        color={colors.neutral300}
+                      />
+                    }
+                  />
+                  {errors.email && (
+                    <Typo size={12} style={{ marginTop: 10 }} color="red">
+                      {errors.email.message}
+                    </Typo>
+                  )}
+                </>
+              )}
+            />
           </View>
 
-        
+          <View>
+            <Controller
+              control={control}
+              name="password"
+              render={({ field: { onChange, value } }) => (
+                <>
+                  <Input
+                    secureTextEntry={true}
+                    placeholder="Enter your password"
+                    onChangeText={onChange}
+                    value={value}
+                    icon={
+                      <Icons.Lock
+                        weight="fill"
+                        size={verticalScale(26)}
+                        color={colors.neutral300}
+                      />
+                    }
+                  />
+                  {errors.password && (
+                    <Typo size={12} style={{ marginTop: 10 }} color="red">
+                      {errors.password.message}
+                    </Typo>
+                  )}
+                </>
+              )}
+            />
+          </View>
+
           <Button
             loading={loading}
             style={{ alignItems: "center" }}
@@ -148,7 +164,7 @@ const Register = () => {
             <Typo size={16} fontWeight={"400"} color={colors.textLighter}>
               Have an account?
             </Typo>
-            <TouchableOpacity onPress={() => router.push("/(auth)/signIn")}>
+            <TouchableOpacity onPress={() => router.navigate("/(auth)/signIn")}>
               <Typo size={16} fontWeight={"700"} color={colors.primary}>
                 Login
               </Typo>
