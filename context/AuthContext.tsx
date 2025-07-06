@@ -42,6 +42,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       };
     } catch (error: any) {
       let msg = error.msg;
+      if(msg.includes('invalid'))
+        msg = 'Invalid email or password'
       return {
         success: false,
         msg,
@@ -65,6 +67,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       };
     } catch (error: any) {
       let msg = error.msg;
+      if(msg.includes('email-already-in-use'))
+        msg='This email already in use'
       return {
         success: false,
         msg,
