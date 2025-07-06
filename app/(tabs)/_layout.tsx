@@ -1,12 +1,16 @@
-import React from 'react'
-import { Tabs } from 'expo-router'
+import React from "react";
+import { Tabs } from "expo-router";
+import CustomTabs from "@/components/CustomTabs";
 
 const _layout = () => {
   return (
-    <Tabs>
-      <Tabs.Screen name='index'  />
+    <Tabs  tabBar={CustomTabs} screenOptions={{ headerShown: false }}>
+      <Tabs.Screen name="index"  />
+      <Tabs.Screen name="wallet" />
+      <Tabs.Screen name="profile" />
+      <Tabs.Screen name="statistics" />
     </Tabs>
-  )
-}
+  );
+};
 
-export default _layout
+export default _layout;
