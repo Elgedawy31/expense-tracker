@@ -1,7 +1,7 @@
 import Typo from "@/components/Typo";
 import ScreenWraper from "@/components/ScreenWraper";
 import BackButton from "@/components/BackButton";
-import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { Alert, StyleSheet, TouchableOpacity, View } from "react-native";
 import { verticalScale } from "@/utils/styling";
 import { colors, spacingX, spacingY } from "@/constants/theme";
 import Input from "@/components/Input";
@@ -12,6 +12,7 @@ import { z } from "zod";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
+import { useAuth } from "@/context/AuthContext";
 const LoginSchema = z.object({
   email: z
     .string()
@@ -25,6 +26,7 @@ const LoginSchema = z.object({
 type FormData = z.infer<typeof LoginSchema>;
 const SignIn = () => {
   const [loading, setLoading] = useState(false);
+  const { login } = useAuth();
   const {
     control,
     handleSubmit,
@@ -34,8 +36,15 @@ const SignIn = () => {
     resolver: zodResolver(LoginSchema),
   });
 
-  const handleLogin: SubmitHandler<FormData> = (data) => {
-    console.log(data);
+  const handleLogin: SubmitHandler<FormData> = async (data) => {
+    setLoading(true);
+    const res = await login(data.email, data.password);
+    if (res.success) {
+      setLoading(false);
+    } else {
+      setLoading(false);
+      Alert.alert("Login", res.msg || "Failed to login");
+    }
   };
   return (
     <ScreenWraper>
@@ -74,7 +83,7 @@ const SignIn = () => {
                     }
                   />
                   {errors.email && (
-                    <Typo size={12} color="red"  style={{ marginTop: 10 }} >
+                    <Typo size={12} color="red" style={{ marginTop: 10 }}>
                       {errors.email.message}
                     </Typo>
                   )}
@@ -140,7 +149,9 @@ const SignIn = () => {
             <Typo size={16} fontWeight={"400"} color={colors.textLighter}>
               Don’t have an account?
             </Typo>
-            <TouchableOpacity onPress={() => router.navigate("/(auth)/register")}>
+            <TouchableOpacity
+              onPress={() => router.navigate("/(auth)/register")}
+            >
               <Typo size={16} fontWeight={"700"} color={colors.primary}>
                 Register
               </Typo>
