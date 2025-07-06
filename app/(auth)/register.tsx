@@ -48,7 +48,7 @@ const Register = () => {
       setLoading(false);
     } else {
       setLoading(false);
-      Alert.alert("Login", res.msg || "Failed to login");
+      Alert.alert("Login", res.msg || "Failed to sign up");
     }
   };
   return (

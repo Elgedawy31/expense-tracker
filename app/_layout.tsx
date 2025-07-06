@@ -5,7 +5,6 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 const Layout = () => {
   return (
-    <SafeAreaView style={{ flex: 1 }}>
       <AuthProvider>
         <Stack screenOptions={{ headerShown: false }}>
           <Stack.Screen name="index" />
@@ -13,7 +12,6 @@ const Layout = () => {
           <Stack.Screen name="(tabs)" />
         </Stack>
       </AuthProvider>
-    </SafeAreaView>
   );
 };
 

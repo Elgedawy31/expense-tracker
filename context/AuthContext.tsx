@@ -24,6 +24,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
           email: firebaseUser.email,
           name: firebaseUser.displayName,
         });
+        updateUserData(firebaseUser.uid)
         router.replace("/(tabs)");
       } else {
         setUser(null);
@@ -53,7 +54,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       const response = await createUserWithEmailAndPassword(
         auth,
         email,
-        password
+        password ,
       );
       await setDoc(doc(firestore, "users", response.user.uid), {
         name,
@@ -64,6 +65,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         success: true,
       };
     } catch (error: any) {
+      console.log(error)
       let msg = error.msg;
       return {
         success: false,
