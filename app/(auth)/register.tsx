@@ -43,12 +43,15 @@ const Register = () => {
   const handleRegister: SubmitHandler<FormData> = async (data) => {
     setLoading(true);
     const res = await register(data.email, data.password, data.name);
-    setLoading(false);
-    if (!res.success) {
-      Alert.alert("Sign Up", res.msg || "Failed to Sign Up")
+    console.log("response", res);
+    if (res.success) {
+      setLoading(false);
+    } else {
+      setLoading(false);
+      Alert.alert("Login", res.msg || "Failed to login");
     }
   };
-  return ( 
+  return (
     <ScreenWraper>
       <View style={styles.container}>
         <BackButton />

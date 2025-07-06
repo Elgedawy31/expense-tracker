@@ -42,15 +42,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       };
     } catch (error: any) {
       let msg = error.msg;
-      if(msg.includes('invalid'))
-        msg = 'Invalid email or password'
       return {
         success: false,
         msg,
       };
     }
   };
-  const register = async (email: string, password: string) => {
+  const register = async (email: string, password: string, name: string) => {
     try {
       const response = await createUserWithEmailAndPassword(
         auth,
@@ -67,8 +65,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       };
     } catch (error: any) {
       let msg = error.msg;
-      if(msg.includes('email-already-in-use'))
-        msg='This email already in use'
       return {
         success: false,
         msg,
