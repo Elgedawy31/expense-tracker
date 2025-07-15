@@ -1,15 +1,45 @@
 import { Platform, StyleSheet, TouchableOpacity, View } from "react-native";
-import { Text } from "@react-navigation/elements";
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
-import { colors } from "@/constants/theme";
+import { colors, spacingY } from "@/constants/theme";
 import { verticalScale } from "@/utils/styling";
 import Typo from "./Typo";
-
+import * as Icons from "phosphor-react-native";
 export default function CustomTabs({
   state,
   descriptors,
   navigation,
 }: BottomTabBarProps) {
+  const tabBarIcons: any = {
+    index: (isFocused: boolean) => (
+      <Icons.House
+        size={verticalScale(30)}
+        weight={isFocused ? "fill" : "regular"}
+        color={isFocused ? colors.primary : colors.neutral400}
+      />
+    ),
+    statistics: (isFocused: boolean) => (
+      <Icons.ChartBar
+        size={verticalScale(30)}
+        weight={isFocused ? "fill" : "regular"}
+        color={isFocused ? colors.primary : colors.neutral400}
+      />
+    ),
+    wallet: (isFocused: boolean) => (
+      <Icons.Wallet
+        size={verticalScale(30)}
+        weight={isFocused ? "fill" : "regular"}
+        color={isFocused ? colors.primary : colors.neutral400}
+      />
+    ),
+    profile: (isFocused: boolean) => (
+      <Icons.User
+        size={verticalScale(30)}
+        weight={isFocused ? "fill" : "regular"}
+        color={isFocused ? colors.primary : colors.neutral400}
+      />
+    ),
+  };
+
   return (
     <View style={styles.tabbar}>
       {state.routes.map((route, index) => {
@@ -50,11 +80,9 @@ export default function CustomTabs({
             testID={options.tabBarButtonTestID}
             onPress={onPress}
             onLongPress={onLongPress}
-            style={{ flex: 1 }}
+            style={styles.tabBarItem}
           >
-            <Typo color={isFocused ? colors.primary : colors.text} style={{textAlign:'center'}}>
-              {label}
-            </Typo>
+            {tabBarIcons[route.name] && tabBarIcons[route.name](isFocused)}
           </TouchableOpacity>
         );
       })}
@@ -66,9 +94,15 @@ const styles = StyleSheet.create({
   tabbar: {
     flexDirection: "row",
     width: "100%",
-    height: Platform.OS === "ios" ? verticalScale(73) : verticalScale(55),
+    height: Platform.OS === "ios" ? verticalScale(73) : verticalScale(60),
     justifyContent: "space-around",
     alignItems: "center",
     backgroundColor: colors.neutral800,
+    borderTopColor: colors.neutral700,
+    borderTopWidth: 1,
+  },
+  tabBarItem: {
+    flex: 1,
+    alignItems: "center",
   },
 });

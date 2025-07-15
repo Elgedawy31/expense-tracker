@@ -5,17 +5,17 @@ import Typo from "@/components/Typo";
 import { colors } from "@/constants/theme";
 import { signOut } from "firebase/auth";
 import { auth } from "@/config/firebase";
+import ScreenWraper from "@/components/ScreenWraper";
 
 export default function home() {
   const handleLogout = async () => {
     signOut(auth);
   };
   return (
-    <View>
-      <Text>home</Text>
+    <ScreenWraper style={{paddingHorizontal:8}}>
       <Button onPress={handleLogout}>
         <Typo color={colors.black}> Logout</Typo>
       </Button>
-    </View>
+    </ScreenWraper>
   );
 }
