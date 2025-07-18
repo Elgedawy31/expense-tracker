@@ -1,11 +1,13 @@
-import { View, Text } from 'react-native'
 import React from 'react'
+import ScreenWraper from '@/components/ScreenWraper'
+import Header from '@/components/Header'
+import { spacingY } from '@/constants/theme'
 
 const profile = () => {
   return (
-    <View>
-      <Text>profile</Text>
-    </View>
+    <ScreenWraper>
+      <Header title='Profile' style={{marginVertical:spacingY._10}} />
+    </ScreenWraper>
   )
 }
 
